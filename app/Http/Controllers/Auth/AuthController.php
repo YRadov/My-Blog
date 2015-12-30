@@ -39,7 +39,19 @@ class AuthController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+//*************************************************
+    //запрет регистрации новых пользователей
+    public function showRegistrationForm()
+    {
+//        return view('auth.login');
+        return redirect('/home');
+    }
 
+    public function postRegister()
+    {
+
+    }
+//*************************************************
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,7 +61,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|min:2',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
